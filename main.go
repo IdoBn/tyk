@@ -2,13 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/Sirupsen/logrus"
-	"github.com/Sirupsen/logrus/hooks/sentry"
-	"github.com/docopt/docopt.go"
-	"github.com/justinas/alice"
-	osin "github.com/lonelycode/osin"
-	"github.com/lonelycode/tykcommon"
-	"github.com/rcrowley/goagain"
 	"html/template"
 	"io/ioutil"
 	"net"
@@ -20,6 +13,14 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus/hooks/sentry"
+	"github.com/docopt/docopt.go"
+	"github.com/justinas/alice"
+	osin "github.com/lonelycode/osin"
+	"github.com/lonelycode/tykcommon"
+	"github.com/rcrowley/goagain"
 )
 
 var log = logrus.New()
@@ -173,6 +174,8 @@ func addOAuthHandlers(spec *APISpec, Muxer *http.ServeMux, test bool) *OAuthMana
 	serverConfig.ErrorStatusCode = 403
 	serverConfig.AllowedAccessTypes = spec.Oauth2Meta.AllowedAccessTypes
 	serverConfig.AllowedAuthorizeTypes = spec.Oauth2Meta.AllowedAuthorizeTypes
+	serverConfig.AllowGetAccessRequest = true
+	serverConfig.AllowClientSecretInParams = true
 
 	OAuthPrefix := OAUTH_PREFIX + spec.APIID + "."
 	//storageManager := RedisStorageManager{KeyPrefix: OAuthPrefix}

@@ -21,3 +21,4 @@ tyk.compose.conf
 run.sh
 utils/cloud_release.sh
 petstore.json
+.DS_Store
